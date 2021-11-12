@@ -106,9 +106,9 @@ int main()
 
             if (event.type == sf::Event::TextEntered)
             {
-                if (inputstr.select())
+                if (inputstr.getselect())
                     inputstr.reText(event.text.unicode);
-                if (inputkey.select())
+                if (inputkey.getselect())
                     inputkey.reText(event.text.unicode);
             }
             
