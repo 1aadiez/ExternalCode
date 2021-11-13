@@ -2,33 +2,29 @@
 namespace form {
     Label::Label(double _x, double _y, std::string _text)
     {
-        font.loadFromFile("Mostery.ttf");      //передаем нашему шрифту файл шрифта
+        font.loadFromFile("Mostery.ttf");      
         x = _x;
         y = _y;
-        text = _text;                // загружает текст
+        text = _text;                
         textout.setFont(font);     
         textout.setStyle(sf::Text::Bold);
-        textout.setCharacterSize(30);           // в пикселях, а не точках!
-        textout.setOutlineColor(sf::Color::White);          // устанавливаем цвет выводимого текста
-        textout.setPosition(x, y);            // позиция текста
+        textout.setCharacterSize(30);           
+        textout.setOutlineColor(sf::Color::White);          
+        textout.setPosition(x, y);            
     }
-    Button::Button(double _x, double _y, double _width, double _height, std::string _text)
+    Button::Button(double _x, double _y, double _width, double _height, std::string _text) :
+        width(_width), height(_height), Label(_x,_y,_text)
     {
-        font.loadFromFile("Mostery.ttf");      //передаем нашему шрифту файл шрифта
-        x = _x;
-        y = _y;
-        width = _width;
-        height = _height;
-        text = _text;
+        font.loadFromFile("Mostery.ttf");      
         textout.setFont(font);
         textout.setCharacterSize(20);
         textout.setOutlineColor(sf::Color::White);
-        textout.setPosition(x, y);            // позиция текстa
-        rectangle.setSize(sf::Vector2f(width, height));    // размер кнопки
-        rectangle.setPosition(x, y);            // координаты кнопки
-        rectangle.setFillColor(sf::Color(133, 133, 133));  // цвет кнопки
-        rectangle.setOutlineThickness(2);          // Контур X пикселей
-        rectangle.setOutlineColor(sf::Color(66, 66, 66));    // Цвет контура
+        textout.setPosition(x, y);            
+        rectangle.setSize(sf::Vector2f(width, height));    
+        rectangle.setPosition(x, y);            
+        rectangle.setFillColor(sf::Color(133, 133, 133));  
+        rectangle.setOutlineThickness(2);          
+        rectangle.setOutlineColor(sf::Color(66, 66, 66));    
     }
    
     bool Button::select(sf::Vector2i _mouse)
@@ -40,13 +36,9 @@ namespace form {
             return false;
         }
     }
-    Input::Input(double _x, double _y, double _width, double _height, std::string _text)
+    Input::Input(double _x, double _y, double _width, double _height, std::string _text) :
+        Button(_x, _y, _width, _height, _text)
     {
-        x = _x;
-        y = _y;
-        width = _width;
-        height = _height;
-        text = _text;
         focus = false;
 
         textout.setFont(font);              // setting the font
@@ -76,17 +68,17 @@ namespace form {
    
     bool Input::select(sf::Vector2i _mouse)
     {
-        if ((_mouse.x > x && _mouse.x < x + width) && (_mouse.y > y && _mouse.y < y + height)) {   //Если нажат клаиша над объектом Input...
-            focus = true;                                       // Фокус true
-            text += "|";                                    // В конец строки добаляем | (что бы понимать что input в фокусе)
+        if ((_mouse.x > x && _mouse.x < x + width) && (_mouse.y > y && _mouse.y < y + height)) {   
+            focus = true;                                       
+            text += "|";                                   
         }
-        else {                                        //...Иначе если нажатие произошло не над объектом, то...
-            if (text.size() > 0) {                                // проверка последнего символа(иначе вылетает)
-                if (text[text.size() - 1] == 124) {                          // если символ | ...
-                    text.erase(text.size() - 1);                            // ... то удаляем его
+        else {                                        
+            if (text.size() > 0) {                                
+                if (text[text.size() - 1] == 124) {                         
+                    text.erase(text.size() - 1);                            
                 }
             }
-            focus = false;                                    // устанавливаем фокус false
+            focus = false;                                    
         }
         return focus;
     }
@@ -94,7 +86,7 @@ namespace form {
     {
         if (!text.empty())
         {
-            if (text[text.size() - 1] == 124) {   // удаляем (если есть) символ |
+            if (text[text.size() - 1] == 124) {  
                 text.erase(text.size() - 1);
             }
             return text;
