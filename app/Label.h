@@ -29,7 +29,7 @@ namespace form {
         double height;    // height of the button
         sf::RectangleShape rectangle;  // rectangle with some width and height
     public:
-        Button() : width(150), height(30) { x = 0; y = 0; text = "Text"; };
+        Button() : width(150), height(30), Label() { };
         Button(double, double, double, double, std::string);
         bool select(sf::Vector2i); // check if the user selected the button
         sf::Text displayText() //text output
@@ -44,7 +44,7 @@ namespace form {
     protected:
         bool focus;
     public:
-        Input() : focus(false) { x = 0; y = 0; width = 150; height = 30; text = ""; };
+        Input() : focus(false), Button() {};
         Input(double, double, double, double, std::string);
         
         void reText(char); //changing text in Input
